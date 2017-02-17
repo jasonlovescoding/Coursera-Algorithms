@@ -1,0 +1,52 @@
+Q1. Dynamic median. Design a data type that supports insert in logarithmic time, find-the-median in constant time, and remove-the-median in logarithmic time.
+A1. see the code outside
+
+Q2. Randomized priority queue. Describe how to add the methods sample() and delRandom() to our binary heap implementation. The two methods return a key that is chosen uniformly at random among the remaining keys, with the latter method also removing that key. The sample() method should take constant time; the delRandom() method should take logarithmic time. Do not worry about resizing the underlying array.
+A2. sample(): 
+1. uniformly generate a random number "id" from 0(inclusive) to the size(exclusive) of the underlying array. 
+2. return the value held by array[id]
+
+ delRandom():
+1. uniformly generate a random number "id" from 0(inclusive) to the size "n"(exclusive) of the underlying array. 
+2. swap array[id] with array[n - 1] (since array[n - 1] must be the min)
+3. sink array[id]
+4. exclude array[n - 1] from the queue whilst returning its value
+
+Q3. Taxicab numbers. A taxicab number is an integer that can be expressed as the sum of two cubes of integers in two different ways: a3+b3=c3+d3. For example, 1729=93+103=13+123. Design an algorithm to find all taxicab numbers with a, b, c, and d less than n.
+
+Version 1: Use time proportional to n2logn and space proportional to n2.
+Version 2: Use time proportional to n2logn and space proportional to n.
+
+A3.
+version 1:
+1. store all the pairs from (1, 1) to (n, n) ... O(n^2)
+2. sort the pairs according to their sum of cubic ... O(n^2*logn)
+3. find all the duplicate values less than n in the sorted sums of cubic ... O(n^2)
+
+version 2:
+maintain an minPQ which is initially (1,1) (2,2) ... (N,N), compared by its sum of cubic, and break the tie with the first number in the pair
+until the queue is empty, loop:
+each time extract the min (a, b), compare to the previous one, if we find a double pair to the same sum, we get a taxicab number
+else we insert (a, b+1) , or do nothing if b == N
+and go back to the loop
+
+For detailed implementation of version 2:
+http://algs4.cs.princeton.edu/24pq/Taxicab.java.html
+Pf in brief:
+Fact 1. we traverse from 1,1 to n,n non-descendingly
+suppose we extract a (c,d) smaller than its precedence (a,b), since (a,b) is the smallest when extracted from the PQ,
+the smaller (c,d) can only be a result of insertion right after we extract (a,b), which contradicts with what we did in the algorithm:
+if there is an insertion, we always insert a bigger node (a, b+1) after extracting one (a,b).
+
+Fact 2. if an extraction (c,d) does have a taxicab pair(a,b) which is not found, (a,b) cannot be in the PQ
+(c,d) is the min node, if (a,b) is its taxicab pair, because of Fact 1, (a,b) must be the nearest neighbor of (c,d),
+and thus will must be found
+
+Fact 3. if an extraction (c,d) does have a taxicab pair(a,b) which is not found, (a,b) cannot be outside PQ
+if (c,d) has an taxicab (a,b) outside PQ, that will must be inserted later. when inserting that node (a, b),
+its precedence extraction is less than (a, b), and also less than (c, d), which contradicts with Fact 1.
+
+Combining Fact 2 and 3, if there is an taxicab pair, it will must be found within the PQ.
+
+
+
