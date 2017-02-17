@@ -1,0 +1,49 @@
+1. Intersection of two sets. Given two arrays a[] and b[], each containing n distinct 2D points in the plane, design a subquadratic algorithm to count the number of points that are contained both in array a[] and array b[].
+A:
+1. quicksort a[n] and b[n]. 
+compare a.(x,y) with b.(x,y):
+if a.x<b.x then return 1
+else if a.x>b.x then return -1
+else if a.y<b.y then return 1
+else if a.y>b.y then return -1
+else return 0
+
+So that we put points of smaller x in the front, for points with the same x those with smaller y is put in the front.
+-> O(nlgn)
+initial the answer ans = 0
+2.  start from i=0, j=0, loop:
+if a[i].compare(b[j])==0 then count++, i++, j++
+else if a[i].compare(b[j])<0 then i++
+else j++ 
+until i>n OR j>n
+-> O(n)
+3. return ans
+
+Hint: shellsort (or any other subquadratic sort).
+
+2. Permutation. Given two integer arrays of size n, design a subquadratic algorithm to determine whether one is a permutation of the other. That is, do they contain exactly the same entries but, possibly, in a different order.
+A:
+1. quicksort a[n] and b[n]
+-> O(nlgn)
+2. from i=0 to i=n-1, loop:
+if a[i]!=b[i] then return false
+else i++
+return true
+
+Hint: sort both arrays.
+
+3.Dutch national flag. Given an array of n buckets, each containing a red, white, or blue pebble, sort them by color. The allowed operations are:
+·swap(i,j): swap the pebble in bucket i with the pebble in bucket j.
+·color(i): color of pebble in bucket i.
+The performance requirements are as follows:
+·At most n calls to color().
+·At most n calls to swap().
+Constant extra space.
+A：
+1. set hd = 1, tl = n, i = 1
+2. loop:
+var c = a[i].color()
+if c=='r' then swap(hd, i), hd++, i++
+else if c=='b' then swap(tl, i), tl--
+else i++
+until i>tl

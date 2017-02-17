@@ -1,0 +1,35 @@
+// Source: http://www.lintcode.com/en/problem/min-stack/
+import java.util.Stack;
+import java.lang.Math;
+
+public class MinStack {
+    private Stack<Integer> minStack;
+    private Stack<Integer> valueStack;
+
+    public MinStack() {
+        minStack = new Stack<Integer>();
+        valueStack = new Stack<Integer>();
+    }
+
+    public void push(int number) {
+        if(valueStack.empty()) {
+            valueStack.push(number);
+            minStack.push(number);
+        }
+        else {
+            int globalMin = Math.min(minStack.peek(), number);
+            valueStack.push(number);
+            minStack.push(globalMin);
+        }
+
+    }
+
+    public int pop() {
+        minStack.pop();
+        return valueStack.pop();
+    }
+
+    public int min() {
+        return minStack.peek();
+    }
+}

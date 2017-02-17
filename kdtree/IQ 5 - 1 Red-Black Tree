@@ -1,0 +1,27 @@
+Q1. Red–black BST with no extra memory. Describe how to save the memory for storing the color information when implementing a red–black BST.
+A1. Due to the alignment issue, the pointer to the node is always a multiple of 2, thus ended with 0.
+Make it 1 for red nodes, and when pointing to it, do some modification.
+Source: http://bannalia.blogspot.com/2008/11/optimizing-red-black-tree-color-bits.html
+
+Q2. Document search. Design an algorithm that takes a sequence of n document words and a sequence of m query words and find the shortest interval in which the m query words appear in the document in the order given. The length of an interval is the number of words in that interval.
+
+A2. 
+1. for each query word build a set of indeces denoting the positions of the appearance in the document
+2. scan through the query words, and for each word, get the least possible (the least index larger than its predecessor)
+3. the least possible one of the last query word minus that of the first is the answer
+
+Q3. Generalized queue. Design a generalized queue data type that supports all of the following operations in logarithmic time (or better) in the worst case.
+
+Create an empty data structure.
+Append an item to the end of the queue.
+Remove an item from the front of the queue.
+Return the ith item in the queue.
+Remove the ith item from the queue.
+
+A3. build the set based on an rb-tree,
+where the insertion sequential number is the key, and the insertion value is the value.
+Create: build an empty rbtree
+Append: insert
+remove: remove the item with the smallest key
+return: return the item with the ith smallest key
+remove: return the item with the ith smallest key

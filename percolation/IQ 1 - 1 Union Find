@@ -1,0 +1,34 @@
+1. Social network connectivity. Given a social network containing n members and a log file containing m timestamps at which times pairs of members formed friendships, design an algorithm to determine the earliest time at which all members are connected (i.e., every member is a friend of a friend of a friend ... of a friend). Assume that the log file is sorted by timestamp and that friendship is an equivalence relation. The running time of your algorithm should be mlogn or better and use extra space proportional to n.
+A:
+1. initialize a n-int array to identify the n people
+2. read the timestamps top-down, 
+for each befriending, use the weighted quick-union + path compression, which means:
+- say A befriends B, first compare the tree size of A and B, then merge the smaller tree's root as a children of the larger tree's root.
+- on each root-finding operation, set the parent of the current node as close to the root as possible on each recursion
+3. after reading each timestamp, check whether the roots of the n nodes are the same. If so, the time is printed out, otherwise go back to 2
+
+Hint: union−find.
+
+
+2. Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better.
+  For example, if one of the connected components is {1,2,6,9}, then the find() method should return 9 for each of the four elements in the connected components.
+A: 
+The union-find uses weighted quick-union + path compression,
+with one thing special: 
+say we union A with B, first compare the tree size of A and B, then merge the smaller tree's root as a children of the larger tree's root.
+Then: If the root of the larger tree is smaller, swap the root with the smaller tree's root. Otherwise do nothing.
+For the find() method: find its root (by applyting the above speciality we guarantee the largest node is always the root in a component)
+
+Hint: maintain an extra array to the weighted quick-union data structure that stores for each root i the large element in the connected component containing i
+
+
+3. Successor with delete. Given a set of N integers S={0,1,...,N−1} and a sequence of requests of the following form:
+`Remove x from S
+`Find the successor of x: the smallest y in S such that y≥x.
+design a data type so that all operations (except construction) should take logarithmic time or better.
+A:
+use quick-union + path compression.
+initialize id[N+1], where id[x] = x
+remove(x): union x with x+1
+successor(x): root(x). note that if root(x) equals N, it means no such value is available in set S.
+Pf:http://www.sigmainfy.com/blog/interview-questions-successor-with-delete.html

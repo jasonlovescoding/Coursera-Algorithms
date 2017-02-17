@@ -1,0 +1,15 @@
+Q1. 4-SUM. Given an array a[] of n integers, the 4-SUM problem is to determine if there exist distinct indices i, j, k, and l such that a[i]+a[j]=a[k]+a[l]. Design an algorithm for the 4-SUM problem that takes time proportional to n2 (under suitable technical assumptions).
+
+A1. Iterate every possible combination of a[i] + a[j] (i<j)
+hash every one of them, and count plus one when there is a collision(which means the value has been reached before)
+
+Q2. athlete has  a "name" as the key, and an number "id" as value.
+equals() should return true for two objects with the same "name"
+1. when two object with the same "name" is put in, although they have the same hash code, the latter one will not replace the first because equals() is not redefined to identify the equal object. (by default it only returns true when two objects are the same, which is the most restrictive type)
+... by convention we should replace the old value when a new value is put in. But this does not cause errors so we DO NOT necessarily have to override equals() when we override hashCode()
+
+2. when two items with the same "name" but different "id" are put in, they will be hashed into different buckets because hashCode() is not redefined to make them produce the same result.
+This is wrong because it violates the contract of hashCode():
+If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.
+
+3. two null objects will not be equal, which should be in a HashMap where null is allowed.

@@ -1,0 +1,48 @@
+Q1. Merging with smaller auxiliary array. 
+  Suppose that the subarray a[0] to a[n−1] is sorted and the subarray a[n] to a[2∗n−1] is sorted. How can you merge the two subarrays so that a[0] to a[2∗n−1] is sorted using an auxiliary array of length n (instead of 2n)?
+A1. (take ascending order as an example)
+Maintain an array s[n]
+start from i=0, j=0, k=0, loop:
+if a[j]<s[i] then a[k++]=a[j++]
+else a[k++]=s[i++]
+until i==n
+
+Hint: copy only the left half into the auxiliary array.
+
+
+Q2. Counting inversions.  
+  An inversion in an array a[] is a pair of entries a[i] and a[j] such that i<j but a[i]>a[j]. Given an array, design a linearithmic algorithm to count the number of inversions.
+A2. see the code outside
+
+Q3. Shuffling a linked list.
+ Given a singly-linked list containing n items, rearrange the items uniformly at random. Your algorithm should consume a logarithmic (or constant) amount of extra memory and run in time proportional to nlogn in the worst case.
+A3. shuffle(list):
+    if list contains a single element
+        return list
+
+    list1,list2 = [],[]
+    while list not empty:
+        move front element from list to list1
+        if list not empty: move front element from list to list2
+
+    shuffle(list1)
+    shuffle(list2)
+
+    if length(list2) < length(list1):
+        i = pick a number uniformly at random in [0..length(list2)]             
+        insert a dummy node into list2 at location i 
+
+    # merge
+    while list1 and list2 are not empty:
+        if coin flip is Heads:
+            move front element from list1 to list
+        else:
+            move front element from list2 to list
+
+    if list1 not empty: append list1 to list
+    if list2 not empty: append list2 to list
+
+    remove the dummy node from list
+    
+    ref. http://stackoverflow.com/questions/12167630/algorithm-for-shuffling-a-linked-list-in-n-log-n-time
+    all thank to @foxcub

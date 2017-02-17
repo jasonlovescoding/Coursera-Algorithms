@@ -1,0 +1,40 @@
+1. Queue with two stacks. Implement a queue with two stacks so that each queue operations takes a constant amortized number of stack operations.
+A:
+plan A - To build the  queue q, establish two private stacks s1 and s2 which share the same memory for storing items. Moreover, the start of the memory is the top of s1, whereas the end of the memory is the top of s2.
+q.enqueue(item) is the same as s2.push(item)
+q.dequeue() is the same as s1.pop()
+
+plan B - q, s1 and s2
+q.enqueue(item) is the same as s1.push(item)
+q.dequeue() is the same as
+if s2.isEmpty() then 
+loop: s2.push(s1.pop()) until s1.isEmpty()
+s2.pop()
+
+Hint: If you push elements onto a stack and then pop them all, they appear in reverse order. If you repeat this process, they're now back in order.
+
+2. Stack with max. Create a data structure that efficiently supports the stack operations (push and pop) and also a return-the-maximum operation. Assume the elements are reals numbers so that you can compare them.
+in stack s, each item i stores both the value and the maximum in the sub-stack of which i is the top. 
+A:
+(create a private class "item" with member "value"for storing the real number and "max" which is described above)
+(suppose "first" is the top item)
+s.push(x):
+i = new item()
+i.value=x
+if x>first.max then i.max=x
+else i.max=first.max
+then is the original code for s.push(i)
+
+pop():
+the original code for s.pop() with "first" storing the item to pop
+return first.value
+
+max():
+return first.max
+
+Hint: Use two stacks, one to store all of the items and a second stack to store the maximums.
+
+3. Java generics. Explain why Java prohibits generic array creation.
+In Java, array has to know its object's type at runtime, which has to be explicitly determined when created.Otherwise when retrieving an object from the array, the compiler cannot know how to "read" the object since it has no idea what type the array is storing.
+Hint: to start, you need to understand that Java arrays are covariant but Java generics are not: that is, String[] is a subtype of Object[], but Stack<String> is not a subtype of Stack<Object>.
+

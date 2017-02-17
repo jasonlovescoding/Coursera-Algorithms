@@ -1,0 +1,79 @@
+1. 3-SUM in quadratic time. Design an algorithm for the 3-SUM problem that takes time proportional to n2 in the worst case. You may assume that you can sort the n integers in time proportional to n2 or better.
+A:
+for array a[n]
+1. initial the answer ans = 0, sort a[n]   -> O(nlgn)
+2. for each a[i]:
+if i>0 AND a[i]==a[i-1], continue
+else, starting from hd = i+1, tl = n-1,
+if a[i] + a[hd] + a[tl] == 0, then 
+    loop hd++ until a[hd]!=a[hd+1] OR l==r, 
+    loop tl-- until a[tl]!=a[tl-1] OR l==r,
+    ans++, hd++, tl--,
+else if a[i] + a[hd] + a[tl] < 0, then hd++
+else tl--
+3. return ans
+
+Hint: given an integer x and a sorted array a[] of n distinct integers, design a linear-time algorithm to determine if there exists two distinct indices i and j such that a[i]+a[j]==x.
+
+2. Search in a bitonic array. An array is bitonic if it is comprised of an increasing sequence of integers followed immediately by a decreasing sequence of integers. Write a program that, given a bitonic array of n distinct integer values, determines whether a given integer is in the array.
+`Standard version: Use ∼3lgn compares in the worst case.
+`Signing bonus: Use ∼2lgn compares in the worst case (and prove that no algorithm can guarantee to perform fewer than ∼2lgn compares in the worst case).
+A:
+/*  -- Standard -- */
+1. use binary search to find the index "p" of the max in bitonic array a[n]
+specificly: the binary search compares the middle value with its left neighbor and right neighbor to determine whether it is the max/ on the rise/ on the fall, and recursively calls another BS if it's not the max
+... ~(lgn)
+2. use ascending binary search in the left subarray of "p" ... ~(lgn)
+3. use descending binary search in the right subarray of "p" ... ~(lgn)
+altogether ~3lgn
+
+/* -- Bonus -- */
+1. compare the middle with the left neighbor and the right neighbor to determine whether the max is on the right or left.
+2. if the middle is smaller than the desired value AND the max is on the left, recursively do bitonic search in the left subarray
+else if the middle is smaller than the desired value AND the max is on the right, recursively do bitonic search in the right subarray
+else (if the middle is larger or equal), do ascending binary search in the left subarray (even if it's not an ascending array BS still works because the bad members are all bigger than the desired value)
+and do descending binary search in the right subarray
+... ~2lgn in the worst case
+Pf. http://stackoverflow.com/questions/19372930/given-a-bitonic-array-and-element-x-in-the-array-find-the-index-of-x-in-2logn
+
+Hints: Standard version. First, find the maximum integer using ∼1lgn compares—this divides the array into the increasing and decreasing pieces.
+Signing bonus. Do it without finding the maximum integer.
+ 
+3. Egg drop. Suppose that you have an n-story building (with floors 1 through n) and plenty of eggs. An egg breaks if it is dropped from floor T or higher and does not break otherwise. Your goal is to devise a strategy to determine the value of T given the following limitations on the number of eggs and tosses:
+Version 0: 1 egg, ≤T tosses.
+Version 1: ∼1lgn eggs and ∼1lgn tosses.
+Version 2: ∼lgT eggs and ∼2lgT tosses.
+Version 3: 2 eggs and ∼2n−−√ tosses.
+Version 4: 2 eggs and ≤cT−−√ tosses for some fixed constant c.
+
+0: start from f=1, loop:
+if break(f) then f++
+else return f
+
+1: start from l=1 and h=n, loop:
+mid = (l+h)/2
+if break(mid) then h=mid-1
+else l=mid
+until l>=h
+return mid
+
+2: start from f=1, loop:
+if NOT break(f) then f=2*f
+else do version1 binary search between [f/2, f]
+
+3. start from f=√n, loop:
+if NOT break(f) then f+=√n
+else do version0 search between [f-√n, f-1]
+
+4. start from f=1, d=1, loop:
+if NOT break(f) then f+=d, d++
+else version0 search between [f-d+1, f-1]
+Pf. http://stackoverflow.com/questions/31491476/design-an-algorithm-to-a-specific-version-of-two-egg
+
+Hints:
+
+Version 0: sequential search.
+Version 1: binary search.
+Version 2: find an interval containing T of size ≤2T, then do binary search.
+Version 3: find an interval of size n√, then do sequential search. Note: can be improved to ∼2n−−√ tosses.
+Version 4: 1+2+3+…+t∼12t2. Aim for c=22√.
