@@ -1,3 +1,4 @@
+// source: http://coursera.cs.princeton.edu/algs4/assignments/kdtree.html
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import java.util.ArrayDeque;
