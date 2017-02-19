@@ -1,3 +1,4 @@
+// source: http://coursera.cs.princeton.edu/algs4/assignments/queues.html
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
