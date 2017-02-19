@@ -1,3 +1,4 @@
+// source: http://coursera.cs.princeton.edu/algs4/assignments/collinear.html
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
