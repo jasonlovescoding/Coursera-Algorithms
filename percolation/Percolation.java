@@ -1,3 +1,4 @@
+// source: http://coursera.cs.princeton.edu/algs4/assignments/percolation.html
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /* the indexing of row and column is one-oriented */
