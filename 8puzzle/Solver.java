@@ -1,3 +1,4 @@
+// source: http://coursera.cs.princeton.edu/algs4/assignments/8puzzle.html
 import java.util.Iterator;
 import java.util.ArrayList;
 import edu.princeton.cs.algs4.In;
