@@ -1,0 +1,23 @@
+1. Nonrecursive depth-first search. Implement depth-first search in an undirected graph without using recursion.
+Use loop instead of recursion.
+V - Nodes to visit
+V := { root }
+while V is not empty:
+    v = (V.take_first())
+    V.prepend(v.children())
+    visit(v)
+
+2. Diameter and center of a tree. Given a connected graph with no cycles, 
+- design a linear-time algorithm to find the longest simple path in the graph. 
+(See diameter.cpp)
+(Another solution using DFS: https://www.geeksforgeeks.org/diameter-tree-using-dfs/)
+- design a linear-time algorithm to find a vertex such that its maximum distance from any other vertex is minimized.
+Keep removing leaf nodes from your tree until you are left with a single node (if left with two nodes, remove any one of them). 
+That node minimizes the maximum distance from it to every other node.
+(https://stackoverflow.com/questions/5055964/centre-node-in-a-tree)
+
+3. Euler cycle. An Euler cycle in a graph is a cycle (not necessarily simple) that uses every edge in the graph exactly one.
+- Show that a connected graph has an Euler cycle if and only if every vertex has even degree.
+Imagine the cycle to be directed. Every node must have equal number of in's and out's.
+- Design a linear-time algorithm to determine whether a graph has an Euler cycle, and if so, find one.
+(See euler.cpp)
