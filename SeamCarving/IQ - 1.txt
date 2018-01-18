@@ -1,0 +1,45 @@
+1. Bottleneck minimum spanning tree. 
+Given a connected edge-weighted graph, 
+design an efficient algorithm to find a minimum bottleneck spanning tree. 
+The bottleneck capacity of a spanning tree is the weights of its largest edge. 
+A minimum bottleneck spanning tree is a spanning tree of minimum bottleneck capacity.
+(hint: every MBST is a MST. see MBST.cpp)
+
+2. Is an edge in a MST. 
+Given an edge-weighted graph G and an edge e, 
+design a linear-time algorithm to determine whether e appears in some MST of G.
+Note: Since your algorithm must take linear time in the worst case, you cannot afford to compute the MST itself.
+(https://stackoverflow.com/questions/15049864/check-if-edge-is-included-in-some-mst-in-linear-time-non-distinct-values)
+We will solve this using MST cycle property, which says that, 
+"For any cycle C in the graph, if the weight of an edge e of C is larger than the weights of all other edges of C, 
+then this edge cannot belong to an MST."
+Now, run the following O(E+V) algorithm to test if the edge E connecting vertices u and v will be a part of some MST or not.
+
+Step 1
+Run dfs from one of the end-points(either u or v) of the edge E considering only those edges that have weight less than that of E.
+
+Step 2
+Case 1 - If at the end of this dfs, the vertices u and v get connected, 
+then edge E cannot be a part of some MST. 
+This is because in this case there definitely exists a cycle in the graph with the edge E 
+having the maximum weight and it cannot be a part of the MST(from the cycle property).
+Case 2 - But if at the end of the dfs u and v stay disconnected, 
+then edge E must be the part of some MST as in this case E is not always the maximum weight edge of all the cycles that it is a part of.
+
+3. Minimum-weight feedback edge set. 
+A feedback edge set of a graph is a subset of edges that contains at least one edge from every cycle in the graph. 
+If the edges of a feedback edge set are removed, the resulting graph is acyclic. 
+Given an edge-weighted graph, design an efficient algorithm to find a feedback edge set of minimum weight. 
+Assume the edge weights are positive.
+(https://softwareengineering.stackexchange.com/questions/261785/min-weight-feedback-edge-set-with-dfs/291621#291621)
+First, for any feedback-edge set F, it must be true that the graph G' = (V, E-F) doesn't have any cycle. 
+This follows directly from the definition of feedback-edge sets.
+Since we are looking for the set F that has minimum total weight, 
+G' should be a tree and the edges in G' must have the maximum total weight possible 
+So G' must be a maximum spanning tree/forest.
+So now the original problem is reduced to finding a maximum spanning tree/forest. 
+You may already know that the Kruskal's algorithm can be used for finding a minimum spanning tree. 
+With a little modification, you can use Kruskal's algorithm to find a maximum spanning tree. 
+https://stackoverflow.com/questions/4992664/how-to-find-maximum-spanning-tree
+So in conclusion, the algorithm I just described has running time of O(E log V) time 
+(which is just the running time of Kruskal's algorithm)
