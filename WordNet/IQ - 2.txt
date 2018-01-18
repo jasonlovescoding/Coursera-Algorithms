@@ -1,0 +1,26 @@
+1. Shortest directed cycle. 
+Given a digraph G, design an efficient algorithm to find a directed cycle 
+with the minimum number of edges (or report that the graph is acyclic). 
+The running time of your algorithm should be at most proportional to V(E+V) 
+and use space proportional to E+V, where V is the number of vertices and E is the number of edges.
+(see ShortestDirectedCycle.java)
+
+2. Hamiltonian path in a DAG. 
+Given a directed acyclic graph, design a linear-time algorithm to determine 
+whether it has a Hamiltonian path (a simple path that visits every vertex), and if so, find one.
+Perform a topological sort of the DAG, then check if successive vertices in the sort are connected in the
+graph. If so, the topological sort gives a Hamiltonian path. On the other hand, if there is a Hamiltonian
+path, then the path gives a topological sort of the DAG. 
+
+3. Reachable vertex.
+DAG: Design a linear-time algorithm to determine whether a DAG has a vertex 
+that is reachable from every other vertex, and if so, find one.
+Compute the topological order and pick the last vertex.
+For such vertex, do a DFS in the reversed graph to see if it reaches the whole graph. 
+If so, such an vertex is found. Otherwise not.
+
+Digraph: Design a linear-time algorithm to determine 
+whether a digraph has a vertex that is reachable from every other vertex, and if so, find one.
+Compute the outdegree of each vertex, pick those with outdegree 0.
+For such vertices, do a DFS in the reversed graph to see if it reaches the whole graph. 
+If so, such an vertex is found. Otherwise not.
